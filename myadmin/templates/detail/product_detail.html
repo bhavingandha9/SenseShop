@@ -1,0 +1,16 @@
+ {% load staticfiles %}
+
+<!--<link rel="stylesheet" type="text/css" href="{% static 'main/style.css'%}"> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>product Details</title>
+</head>
+product
+<a href="{% url 'myadmin' %}">home</a>
+    {{ product.pro_name }}
+{{ product.pro_price }}
+{{ product.prodct_dec }}
+</body>
+</html>

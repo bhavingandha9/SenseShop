@@ -1,0 +1,8 @@
+{% block body %}
+    stock admin
+         <form action="" method="post" enctype="multipart/form-data">
+             {% csrf_token %}
+             {% include 'add/form_template.html' %}
+             <button type="submit">submit</button>
+         </form>
+{% endblock %}

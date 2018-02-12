@@ -1,0 +1,26 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/style.css'%}">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+
+
+{% if request.session.user %}
+        <title>Title</title>
+    </head>
+    <body>
+            <a href="{% url 'user_logout' %}">logout</a>
+
+            hello user
+                {% for od1 in order_details %}
+                    <li>{{ od1.id}}</li>
+                {% endfor %}
+    </body>
+</html>
+{% else %}
+        <meta http-equiv="refresh" content="0;{% url 'index' %}"
+    </head>
+    </body>
+</html>
+{% endif %}

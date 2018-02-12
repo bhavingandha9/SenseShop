@@ -1,0 +1,8 @@
+{% block body %}
+    product update
+         <form action="" method="post" enctype="multipart/form-data">
+             {% csrf_token %}
+             {% include 'update/form_template.html' %}
+             <button type="submit">submit</button>
+         </form>
+{% endblock %}

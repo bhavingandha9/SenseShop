@@ -1,0 +1,15 @@
+ {% load staticfiles %}
+
+<!--<link rel="stylesheet" type="text/css" href="{% static 'main/style.css'%}"> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>stock Details</title>
+</head>
+
+<a href="{% url 'myadmin' %}">home</a>
+    {{ stock.pro_id }}
+{{ stock.quantity }}
+</body>
+</html>

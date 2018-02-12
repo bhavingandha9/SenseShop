@@ -1,0 +1,19 @@
+body{
+    background: url("./images/background.jpg") ;
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+}
+
+#index_box
+{
+	border: 1px solid black;
+	height: 100%;
+	background-color: white;
+	border-radius:10px;
+	clear: left;
+	height: 60%;
+	width: 40%;
+	position: relative;
+	top: 5%;
+	left:28%
+}

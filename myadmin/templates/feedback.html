@@ -1,0 +1,17 @@
+ {% load staticfiles %}
+
+<!--<link rel="stylesheet" type="text/css" href="{% static 'main/style.css'%}"> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>feedback</title>
+</head>
+feedback
+<a href="{% url 'myadmin' %}">admin</a>
+{% for fd in feedback %}
+    <li><a href="{% url 'feedback_detail' fd.id %} ">{{ fd.email }}</a></li>
+{% endfor %}
+
+</body>
+</html>

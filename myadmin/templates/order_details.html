@@ -1,0 +1,14 @@
+{% load staticfiles %}
+
+<!--<link rel="stylesheet" type="text/css" href="{% static 'main/style.css'%}"> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Details</title>
+</head>
+{% for od in order %}
+      <li><a href="{% url 'order_details' od.id %} ">{{ od.id }}</a></li>
+{% endfor %}
+</body>
+</html>

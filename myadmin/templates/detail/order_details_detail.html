@@ -1,0 +1,15 @@
+ {% load staticfiles %}
+
+<!--<link rel="stylesheet" type="text/css" href="{% static 'main/style.css'%}"> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Details</title>
+</head>
+Orders
+<a href="{% url 'myadmin' %}">home</a>
+    {{ order.tc_id }}
+{{ order.pay_id }}
+</body>
+</html>
