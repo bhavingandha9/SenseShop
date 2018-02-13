@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <title>stock</title>
 </head>
-
-<a href="{% url 'stockadd' %}">add stock</a>
+<body>
+<a href="{% url 'stock_add' %}">add stock</a>
 
 {% for stk in stock %}
     <li><a href="{% url 'stock_detail' stk.id %} ">{{ stk.pro_id }}</a></li>

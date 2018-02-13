@@ -16,7 +16,7 @@ def index(request):
 class ProductCreateView(CreateView):
     template_name = 'add/product_form.html'
     model = product
-    fields = ['pro_name', 'au_id', 'pro_price', 'prodct_dec', 'flag' ]
+    fields = ['pro_name', 'au_id', 'pro_price', 'prodct_dec' ]
 
 class ProductIndexView(generic.ListView):
     template_name = 'product.html'
