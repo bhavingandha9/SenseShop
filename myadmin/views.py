@@ -25,7 +25,7 @@ class Adminhome(generic.ListView):
     def get_queryset(self):
         return product.objects.all()
 
- 
+
 
 class ProductCreateView(CreateView):
     template_name = 'add/product_form.html'

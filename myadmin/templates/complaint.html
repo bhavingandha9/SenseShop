@@ -1,10 +1,6 @@
 {% load staticfiles %}
 {% include 'article_start.html' %}
-complaints
-<a href="{% url 'myadmin' %}">home</a>
-
 {% for com in complaint %}
       <li><a href="{% url 'complaint_detail' com.id %} ">{{ com.email }}</a></li>
-
 {% endfor %}
 {% include 'article_close.html' %}
