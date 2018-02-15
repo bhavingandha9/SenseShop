@@ -1,18 +1,10 @@
 {% load staticfiles %}
+{% include 'article_start.html' %}
 
-<!--<link rel="stylesheet" type="text/css" href="{% static 'main/style.css'%}"> -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>customer</title>
-</head>
-<body>
 <a href="{% url 'customer_add' %}">add customer</a>
 
 {% for customer in customer %}
       <li><a href="{% url 'customer_detail' customer.id %} ">{{ customer.email }}</a></li>
 
 {% endfor %}
-</body>
-</html>
+ {% include 'article_close.html' %}

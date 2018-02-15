@@ -8,6 +8,9 @@ from django.core.urlresolvers import reverse
 def index(request):
     if request.session.has_key('user'):
         return redirect('user')
+    elif request.session.has_key('myadmin'):
+        return redirect('myadmin')
+        #return HttpResponse(request.session['user'])
     else:
         all_customer = customer.objects.all()
         template = loader.get_template('login/index.html')
@@ -32,10 +35,12 @@ def login_check(request):
 
     if flag == 1:
         request.session['user'] = form_user
+        request.session.modified = True
         return redirect('user')
     elif flag == 2:
         request.session['myadmin'] = form_user
+        request.session.modified = True
+
         return redirect('myadmin')
     else:
         return redirect('index')
-

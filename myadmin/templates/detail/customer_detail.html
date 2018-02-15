@@ -1,18 +1,7 @@
 {% load staticfiles %}
-
-<!--<link rel="stylesheet" type="text/css" href="{% static 'main/style.css'%}"> -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>customer Details</title>
-</head>
-<body>
-
-<a href="{% url 'myadmin' %}">home</a><br>
+{% include 'article_start.html' %}
     {{ customer.cm_msg }}
     {{ customer.email }}
 <a href="{% url 'complaint_update' complaint.id %}">update</a>
 
-</body>
-</html>
+{% include 'article_close.html' %}

@@ -1,12 +1,5 @@
- {% load staticfiles %}
-
-<!--<link rel="stylesheet" type="text/css" href="{% static 'main/style.css'%}"> -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Complaint</title>
-</head>
+{% load staticfiles %}
+{% include 'article_start.html' %}
 complaints
 <a href="{% url 'myadmin' %}">home</a>
 
@@ -14,5 +7,4 @@ complaints
       <li><a href="{% url 'complaint_detail' com.id %} ">{{ com.email }}</a></li>
 
 {% endfor %}
-</body>
-</html>
+{% include 'article_close.html' %}

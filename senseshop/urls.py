@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^login_check/$', views.login_check,name='login_check'),
     url(r'^admin/', admin.site.urls, name='admin'),
 
-    url(r'^myadmin/$', b.index, name='myadmin'),
+    url(r'^myadmin/$', b.Adminhome.as_view(), name='myadmin'),
     url(r'^myadmin/product$',b.ProductIndexView.as_view(),name='product'),
     url(r'^myadmin/product/(?P<pk>[0-9]+)/$',b.ProductDetailView.as_view(),name='product_detail'),
     url(r'^myadmin/product/add$', b.ProductCreateView.as_view(), name='product_add'),
@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^myadmin/stock/add$',b.StockCreateView.as_view(),name='stock_add'),
     url(r'^myadmin/stock$', b.StockIndexView.as_view(), name='stock'),
     url(r'^myadmin/stock/(?P<pk>[0-9]+)/$', b.StockDetailView.as_view(), name='stock_detail'),
-    url(r'^admin_logout/', b.logout, name='admin_logout'),
+    url(r'^myadmin_logout/', b.logout, name='myadmin_logout'),
 
     url(r'^myadmin/customer/add$', b.CustomerCreateView.as_view(), name='customer_add'),
     url(r'^myadmin/customer', b.CustomerIndexView.as_view(), name='customer'),
