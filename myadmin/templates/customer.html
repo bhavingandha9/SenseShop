@@ -3,8 +3,22 @@
 
 <a href="{% url 'customer_add' %}">add customer</a>
 
-{% for customer in customer %}
-      <li><a href="{% url 'customer_detail' customer.id %} ">{{ customer.email }}</a></li>
-
+{% for c in customer %}
+      <li><a href="{% url 'customer_detail' c.id %} ">{{ c.email }}</a></li>
 {% endfor %}
- {% include 'article_close.html' %}
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{% url 'product' %}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{% url 'product' %}?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+{% include 'article_close.html' %}

@@ -2,6 +2,27 @@
 {% include 'article_start.html' %}
 <a href="{% url 'stock_add' %}">add stock</a>
 {% for stk in stock %}
-    <li><a href="{% url 'stock_detail' stk.id %} ">{{ stk.pro_id }}</a></li>
+    <ul>
+    <li>{{ stk.pro_id }}</a></li>
+    <li>{{ stk.quantity }}</li>
+        <li><a href="{% url "stock_update" stk.id %}">update</a></li>
+    </ul>
 {% endfor %}
+
+   {% if is_paginated %}
+        <div class="">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{% url 'product' %}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{% url 'product' %}?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+
 {% include 'article_close.html' %}

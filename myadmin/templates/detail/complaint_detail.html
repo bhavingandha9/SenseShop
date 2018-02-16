@@ -2,5 +2,5 @@
 {% include 'article_start.html' %}
 
     {{ complaint.email }}
-<a href="{% url 'customer_update' customer.id %}">update</a>
+<a href="{% url 'complaint_update' complaint.id %}">update</a>
 {% include 'article_close.html' %}

@@ -26,17 +26,87 @@ class Adminhome(generic.ListView):
         return product.objects.all()
 
 
+class CustomerCreateView(generic.CreateView):
+    template_name = 'add/customer_form.html'
+    model = customer
+    fields = {'cname', 'email', 'password', 'mobile_no', 'address', 'au_id'}
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.session.has_key('myadmin'):
+            a = 'hello'
+        else:
+            return redirect('index')
+        return super(CustomerCreateView, self).dispatch(request, *args, **kwargs)
+
+
+class CustomerIndexView(generic.ListView):
+    template_name = 'customer.html'
+    context_object_name = 'customer'
+    model = customer
+    paginate_by = 5
+
+    def get_queryset(self):
+        return customer.objects.all()
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.session.has_key('myadmin'):
+            a = 'hello'
+        else:
+            return redirect('index')
+        return super(CustomerIndexView, self).dispatch(request, *args, **kwargs)
+
+
+class CustomerDetailView(generic.DetailView):
+    template_name = 'detail/customer_detail.html'
+    context_object_name = 'customer'
+    model = customer
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.session.has_key('myadmin'):
+            a = 'hello'
+        else:
+            return redirect('index')
+        return super(CustomerDetailView, self).dispatch(request, *args, **kwargs)
+
+
+class CustomerUpdateView(UpdateView):
+    template_name = 'update/customer_update.html'
+    model = customer
+    fields = ['email', 'mobile']
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.session.has_key('myadmin'):
+            a = 'hello'
+        else:
+            return redirect('index')
+        return super(CustomerUpdateView, self).dispatch(request, *args, **kwargs)
+
+
+class CustomerDeleteView(DeleteView):
+    model = customer
+    success_url = reverse_lazy('order')
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.session.has_key('myadmin'):
+            a = 'hello'
+        else:
+            return redirect('index')
+        return super(CustomerDeleteView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
+
 
 class ProductCreateView(CreateView):
     template_name = 'add/product_form.html'
     model = product
-    fields = ['pro_name', 'au_id', 'pro_price', 'prodct_dec' ]
+    fields = ['pro_name', 'au_id', 'pro_price', 'prodct_dec' ,'flag' ]
 
 class ProductIndexView(generic.ListView):
     template_name = 'product.html'
     context_object_name = 'product'
     model = product
-    paginate_by = 2
+    paginate_by = 5
     def get_queryset(self):
         return product.objects.all()
     def dispatch(self,request ,*args, **kwargs):
@@ -78,12 +148,16 @@ class ProductDeleteView(DeleteView):
             return redirect('index')
         return super(ProductDeleteView, self).dispatch(request,*args, **kwargs)
 
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
   
 
 class ComplaintIndexView(generic.ListView):
     template_name = 'complaint.html'
     context_object_name = 'complaint'
     model = complaint
+    paginate_by = 2
+
     def get_queryset(self):
         return complaint.objects.all()
     def dispatch(self,request ,*args, **kwargs):
@@ -107,7 +181,7 @@ class ComplaintDetailView(generic.DetailView):
 class ComplaintUpdateView(UpdateView):
     template_name = 'update/complaint_update.html'
     model = complaint
-    fields = ['email','mobile','cm_msg','o_id','flag']
+    fields = ['email','mobile','cm_msg','o_id']
     def dispatch(self,request ,*args, **kwargs):
         if request.session.has_key('myadmin'):
             a = 'hello'
@@ -124,13 +198,15 @@ class ComplaintDeleteView(DeleteView):
         else:
             return redirect('index')
         return super(ComplaintDeleteView, self).dispatch(request,*args, **kwargs)
-
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
  
 
 class FeedbackIndexView(generic.ListView):
     template_name = 'feedback.html'
     context_object_name = 'feedback'
     model = feedback
+    paginate_by = 5
 
     def get_queryset(self):
         return feedback.objects.all()
@@ -172,7 +248,8 @@ class FeedbackDeleteView(DeleteView):
         else:
             return redirect('index')
         return super(FeedbackDeleteView, self).dispatch(request,*args, **kwargs)
-
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
  
 
 class StockCreateView(CreateView):
@@ -190,7 +267,7 @@ class StockIndexView(generic.ListView):
     template_name = 'stock.html'
     context_object_name = 'stock'
     model = stock
-
+    paginate_by = 5
     def get_queryset(self):
         return stock.objects.all()
     def dispatch(self,request ,*args, **kwargs):
@@ -213,8 +290,8 @@ class StockDetailView(generic.DetailView):
 
 class StockUpdateView(UpdateView):
     template_name = 'update/stock_update.html'
-    model = feedback
-    fields = {'pro_id','quantity'}
+    model = stock
+    fields = {'quantity'}
     def dispatch(self,request ,*args, **kwargs):
         if request.session.has_key('myadmin'):
             a = 'hello'
@@ -222,12 +299,14 @@ class StockUpdateView(UpdateView):
             return redirect('index')
         return super(StockUpdateView, self).dispatch(request,*args, **kwargs)
 
- 
+
 
 class OrderIndexView(generic.ListView):
     template_name = 'order_details.html'
     context_object_name = 'order'
     model = order_details
+    paginate_by = 5
+
     def get_queryset(self):
         return order_details.objects.all()
     def dispatch(self,request ,*args, **kwargs):
@@ -272,63 +351,9 @@ class OrderDeleteView(DeleteView):
             return redirect('index')
         return super(OrderDeleteView, self).dispatch(request,*args, **kwargs)
 
- 
 
-class CustomerCreateView(generic.CreateView):
-    template_name = 'add/customer_form.html'
-    model = customer
-    fields = {}
-    def dispatch(self,request ,*args, **kwargs):
-        if request.session.has_key('myadmin'):
-            a = 'hello'
-        else:
-            return redirect('index')
-        return super(CustomerCreateView, self).dispatch(request,*args, **kwargs)
 
-class CustomerIndexView(generic.ListView):
-    template_name = 'customer.html'
-    context_object_name = 'customer'
-    model = customer
-    def get_queryset(self):
-        return customer.objects.all()
-    def dispatch(self,request ,*args, **kwargs):
-        if request.session.has_key('myadmin'):
-            a = 'hello'
-        else:
-            return redirect('index')
-        return super(CustomerIndexView, self).dispatch(request,*args, **kwargs)
 
-class CustomerDetailView(generic.DetailView):
-    template_name = 'detail/customer_detail.html'
-    context_object_name = 'order'
-    model = customer
-    def dispatch(self,request ,*args, **kwargs):
-        if request.session.has_key('myadmin'):
-            a = 'hello'
-        else:
-            return redirect('index')
-        return super(CustomerDetailView, self).dispatch(request,*args, **kwargs)
-
-class CustomerUpdateView(UpdateView):
-    template_name = 'update/customer_update.html'
-    model = customer
-    fields = ['email','mobile']
-    def dispatch(self,request ,*args, **kwargs):
-        if request.session.has_key('myadmin'):
-            a = 'hello'
-        else:
-            return redirect('index')
-        return super(CustomerUpdateView, self).dispatch(request,*args, **kwargs)
-
-class CustomerDeleteView(DeleteView):
-    model = customer
-    success_url = reverse_lazy('order')
-    def dispatch(self,request ,*args, **kwargs):
-        if request.session.has_key('myadmin'):
-            a = 'hello'
-        else:
-            return redirect('index')
-        return super(CustomerDeleteView, self).dispatch(request,*args, **kwargs)
 
 def logout(request):
     del request.session['myadmin']

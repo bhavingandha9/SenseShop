@@ -4,8 +4,11 @@ from django.template import loader
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
+from django.core.mail import send_mail
+from django.conf import settings
 
 def index(request):
+
     if request.session.has_key('user'):
         return redirect('user')
     elif request.session.has_key('myadmin'):
@@ -44,3 +47,17 @@ def login_check(request):
         return redirect('myadmin')
     else:
         return redirect('index')
+
+
+def send(request):
+    if request.method == "POST":
+        email = request.POST['forgot_email']
+        all_users = customer.objects.all()
+        result = 'hello'
+        for users in all_users:
+            if users.email in email:
+                send_mail('PasswordReset', users.password , 'senseshop', [users.email])
+                return redirect('/?message=success')
+
+        return redirect('/?message=failed')
+

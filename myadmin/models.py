@@ -1,5 +1,6 @@
 from django.db import models
 from login.models import customer as a
+from django.core.urlresolvers import reverse
 #make sure all colums names are in deCAPS
 
 class product(models.Model):
@@ -8,6 +9,10 @@ class product(models.Model):
     pro_price = models.DecimalField(max_digits=5, decimal_places=0)
     prodct_dec =models.CharField(max_length=1000)
     flag =models.DecimalField(max_digits=2,decimal_places=0)
+
+    def get_absolute_url(self):
+        return reverse('product')
+
     def __str__(self):
       return self.pro_name
 
@@ -17,6 +22,8 @@ class stock(models.Model):
     flag = models.DecimalField(max_digits=2,decimal_places=0)
     def __str__(self):
       return str(self.pro_id)
+    def get_absolute_url(self):
+        return reverse('stock')
 
 class warehouse_stock(models.Model):
     s_id = models.ForeignKey(stock, on_delete=models.CASCADE)
@@ -39,6 +46,8 @@ class feedback(models.Model):
     flag =models.DecimalField(max_digits=2,decimal_places=0)
     def __str__(self):
       return self.email+'-' +self.f_msg
+    def get_absolute_url(self):
+        return reverse('feedback')
 
 class temp_cart(models.Model):
     pro_id = models.ForeignKey(product)
@@ -48,6 +57,8 @@ class temp_cart(models.Model):
     flag =models.DecimalField(max_digits=2,decimal_places=0)
     def __str__(self):
       return str(self.pro_id)+'-' +str(self.c_id)+'-'
+    def get_absolute_url(self):
+        return reverse('temp_cart')
 
 class payments(models.Model):
     tc_id = models.ForeignKey(temp_cart)
@@ -57,6 +68,8 @@ class payments(models.Model):
     flag =models.DecimalField(max_digits=2,decimal_places=0)
     def __str__(self):
       return str(self.tc_id) +'-' +str(self.c_id)+'-' +str(self.transaction_id)
+    def get_absolute_url(self):
+        return reverse('payments')
 
 class order_details(models.Model):
     tc_id = models.ForeignKey(temp_cart)
@@ -65,6 +78,8 @@ class order_details(models.Model):
     flag =models.DecimalField(max_digits=2,decimal_places=0)
     def __str__(self):
       return str(self.tc_id) +'-' + str(self.pay_id) +'-' +str(self.c_id)
+    def get_absolute_url(self):
+        return reverse('order_details')
 
 class complaint(models.Model):
     email = models.CharField(max_length=150)
@@ -73,4 +88,6 @@ class complaint(models.Model):
     o_id = models.ForeignKey(order_details)
     flag = models.DecimalField(max_digits=2,decimal_places=0)
     def __str__(self):
-      return str(self.email) +'-' + str(self.o_id)
+      return str(self.email)
+    def get_absolute_url(self):
+        return reverse('complaint')

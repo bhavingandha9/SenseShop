@@ -1,5 +1,6 @@
 
 import os
+import smtplib
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -116,3 +117,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = 'senseshop/myadmin/static'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'bhavin.gandha@gmail.com'
+EMAIL_HOST_PASSWORD = 'myangle9126'
+EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

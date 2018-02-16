@@ -1,7 +1,5 @@
 {% load staticfiles %}
 {% include 'article_start.html' %}
-    {{ customer.cm_msg }}
-    {{ customer.email }}
-<a href="{% url 'complaint_update' complaint.id %}">update</a>
-
+    {{ customer.mobile_no }} 
+    {{ customer.address }} 
 {% include 'article_close.html' %}

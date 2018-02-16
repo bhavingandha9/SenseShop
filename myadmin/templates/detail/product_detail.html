@@ -1,6 +1,9 @@
 {% load staticfiles %}
 {% include 'article_start.html' %}
-Product Name: {{ product.pro_name }}
-Product Price: {{ product.pro_price }}
-Product Description: {{ product.prodct_dec }}
+Product Name: {{ product.pro_name }}<br>
+Product Price: {{ product.pro_price }}<br>
+Product Description: {{ product.prodct_dec }}<br>
+<a href="{% url 'product_update' product.id %}">Update</a>
+<a href="{% url 'product_delete' product.id %}">Delete</a>
+
 {% include 'article_close.html' %}
