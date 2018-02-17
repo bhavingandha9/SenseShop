@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>SenseShop</title>
-
+<title>SenseShop</title> 
 <link rel="stylesheet" href="{% static 'css/screen.css'%} " type="text/css" media="screen" title="default" />
 
 <!--  jquery core -->
@@ -216,30 +215,36 @@ $(document).pngFix( );
 		<div class="table">
 
 		<ul class="select">
-            <li><a href="{% url 'product' %} "><b>Product</b></a></li>
-            <li><a href="{% url 'stock' %}"><b>Stock</b></a></li>
-            <li><a href="{% url 'complaint' %}"><b>Complaint</b></a></li>
-            <li><a href="{% url 'feedback' %}"><b>Feedback</b></a></li>
-            <li><a href="{% url 'customer' %}"><b>Customer</b></a></li>
+			<li><a href="{% url 'product' %} "><b>Product</b></a></li></ul>
+			<div class="nav-divider">&nbsp;</div>
+	
+			<ul class="select">
+				<li><a href="{% url 'stock' %}"><b>Stock</b></a></li></ul>
+			<div class="nav-divider">&nbsp;</div>
+			
+			
+			<ul class="select">
+			<li><a href="{% url 'complaint' %}"><b>Complaint</b></a></li></ul>
+			<div class="nav-divider">&nbsp;</div>
+			
+			<ul class="select">
+			<li><a href="{% url 'feedback' %}"><b>Feedback</b></a></li></ul>
+			<div class="nav-divider">&nbsp;</div>
+			<ul class="select">
+			<li><a href="{% url 'customer' %}"><b>Customer</b></a></li></ul>
 
-        </ul>
+		<div class="clear"></div>
 		</div>
+		<div class="clear"></div>
 		</div>
-		<!--  start nav -->
-</div>
-<!--  start nav-outer -->
-</div>			<!--  start nav -->
-
+	 
 </div>
 <div class="clear"></div>
-<!--  start nav-outer -->
-</div>
-<!--  start nav-outer-repeat................................................... END -->
 
-  <div class="clear"></div>
+ 
+</div>			 
+<div class="clear"></div>
 
-<!-- start content-outer ........................................................................................................................START -->
 <div id="content-outer">
 <!-- start content -->
-<div id="content">
-
+<div id="content"> 

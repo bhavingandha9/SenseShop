@@ -1,6 +1,9 @@
 from django.db import models
 from login.models import customer as a
 from django.core.urlresolvers import reverse
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 #make sure all colums names are in deCAPS
 
 class product(models.Model):
@@ -15,6 +18,9 @@ class product(models.Model):
 
     def __str__(self):
       return self.pro_name
+    def __unicode__(self):
+        return unicode(self.pk)
+
 
 class stock(models.Model):
     pro_id = models.ForeignKey(product, on_delete=models.CASCADE)
@@ -24,6 +30,11 @@ class stock(models.Model):
       return str(self.pro_id)
     def get_absolute_url(self):
         return reverse('stock')
+
+    @receiver(post_save,sender=product)
+    def update_stock(sender,instance,**kwargs):
+        p = stock(pro_id_id=instance.pk,quantity=0,flag=0)
+        p.save()
 
 class warehouse_stock(models.Model):
     s_id = models.ForeignKey(stock, on_delete=models.CASCADE)

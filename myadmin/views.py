@@ -106,7 +106,7 @@ class ProductIndexView(generic.ListView):
     template_name = 'product.html'
     context_object_name = 'product'
     model = product
-    paginate_by = 5
+    paginate_by = 10
     def get_queryset(self):
         return product.objects.all()
     def dispatch(self,request ,*args, **kwargs):
@@ -255,7 +255,7 @@ class FeedbackDeleteView(DeleteView):
 class StockCreateView(CreateView):
     template_name = 'add/stock_form.html'
     model = stock
-    fields = {'pro_id','quantity'}
+    fields = {'pro_id','quantity','flag'}
     def dispatch(self,request ,*args, **kwargs):
         if request.session.has_key('myadmin'):
             a = 'hello'
@@ -350,9 +350,6 @@ class OrderDeleteView(DeleteView):
         else:
             return redirect('index')
         return super(OrderDeleteView, self).dispatch(request,*args, **kwargs)
-
-
-
 
 
 def logout(request):
