@@ -30,12 +30,12 @@ class stock(models.Model):
       return str(self.pro_id)
     def get_absolute_url(self):
         return reverse('stock')
-
+  
     @receiver(post_save,sender=product)
     def update_stock(sender,instance,**kwargs):
         p = stock(pro_id_id=instance.pk,quantity=0,flag=0)
         p.save()
-
+ 
 class warehouse_stock(models.Model):
     s_id = models.ForeignKey(stock, on_delete=models.CASCADE)
     quantity = models.DecimalField(max_digits=3,decimal_places=0)
