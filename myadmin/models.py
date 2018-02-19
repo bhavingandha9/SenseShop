@@ -7,11 +7,11 @@ from django.dispatch import receiver
 #make sure all colums names are in deCAPS
 
 class product(models.Model):
-    pro_name = models.CharField(max_length=250)
+    pro_name = models.CharField(max_length=250, unique=True)
     au_id = models.DecimalField(max_digits=20,decimal_places=0)
     pro_price = models.DecimalField(max_digits=5, decimal_places=0)
     prodct_dec =models.CharField(max_length=1000)
-    flag =models.DecimalField(max_digits=2,decimal_places=0)
+    flag =models.DecimalField(max_digits=2,decimal_places=0,null=True,blank=True,default=0)
 
     def get_absolute_url(self):
         return reverse('product')
@@ -25,7 +25,7 @@ class product(models.Model):
 class stock(models.Model):
     pro_id = models.ForeignKey(product, on_delete=models.CASCADE)
     quantity = models.DecimalField(max_digits=3,decimal_places=0)
-    flag = models.DecimalField(max_digits=2,decimal_places=0)
+    flag = models.DecimalField(max_digits=2,decimal_places=0,null=True,blank=True,default=0)
     def __str__(self):
       return str(self.pro_id)
     def get_absolute_url(self):
@@ -54,7 +54,7 @@ class feedback(models.Model):
     email = models.CharField(max_length=150)
     mobile = models.DecimalField(max_digits=10,decimal_places=0)
     f_msg = models.CharField(max_length=1000)
-    flag =models.DecimalField(max_digits=2,decimal_places=0)
+    flag =models.DecimalField(max_digits=2,decimal_places=0,null=True,blank=True)
     def __str__(self):
       return self.email+'-' +self.f_msg
     def get_absolute_url(self):
@@ -76,7 +76,7 @@ class payments(models.Model):
     c_id = models.ForeignKey(a)
     amount = models.DecimalField(max_digits=100, decimal_places=0)
     transaction_id = models.DecimalField(max_digits=150,decimal_places=0)
-    flag =models.DecimalField(max_digits=2,decimal_places=0)
+    flag =models.DecimalField(max_digits=2,decimal_places=0,null=True,blank=True)
     def __str__(self):
       return str(self.tc_id) +'-' +str(self.c_id)+'-' +str(self.transaction_id)
     def get_absolute_url(self):
@@ -97,7 +97,7 @@ class complaint(models.Model):
     mobile = models.DecimalField(max_digits=10,decimal_places=0)
     cm_msg = models.CharField(max_length=1000)
     o_id = models.ForeignKey(order_details)
-    flag = models.DecimalField(max_digits=2,decimal_places=0)
+    flag = models.DecimalField(max_digits=2,decimal_places=0,null=True,blank=True,default=0)
     def __str__(self):
       return str(self.email)
     def get_absolute_url(self):

@@ -40,6 +40,8 @@ urlpatterns = [
     url(r'^myadmin/customer/delete/(?P<pk>[0-9]+)/$', b.CustomerUpdateView.as_view(), name='customer_delete'),
     url(r'^myadmin/customer/update/(?P<pk>[0-9]+)/$', b.CustomerDeleteView.as_view(), name='customer_update'),
 
+    url(r'^myadmin/search',b.search , name='myadmin_search'),
+
     url(r'^myadmin_logout/', b.logout, name='myadmin_logout'),
 
     url(r'^user/$',a.OrderIndexView.as_view(), name='user'),

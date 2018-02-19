@@ -7,8 +7,7 @@
 <link rel="stylesheet" href="{% static 'css/screen.css'%} " type="text/css" media="screen" title="default" />
 
 <!--  jquery core -->
-<script src="{% static 'js/jquery/jquery-1.4.1.min.js'%}" type="text/javascript"></script>
-
+<script src="{% static 'js/jquery/jquery-1.4.1.min.js'%}" type="text/javascript"></script> 
 <!--  checkbox styling script -->
 <script src="{% static 'js/jquery/ui.core.js'%}" type="text/javascript"></script>
 <script src="{% static 'js/jquery/ui.checkbox.js'%}" type="text/javascript"></script>
@@ -166,16 +165,17 @@ $(document).pngFix( );
 
 	<!--  start top-search -->
 	<div id="top-search">
+	<form action="{% url 'myadmin_search' %}" method="POST">
+			{% csrf_token %}	
 		<table border="0" cellpadding="0" cellspacing="0">
 		<tr>
-		<td><input type="text" value="Search" onblur="if (this.value=='') { this.value='Search'; }" onfocus="if (this.value=='Search') { this.value=''; }" class="top-search-inp" /></td>
+		<td><input type="text" id="query" style="width:140px" name="query" value="Search" onblur="if (this.value=='') { this.value='Search'; }" onfocus="if (this.value=='Search') { this.value=''; }" class="top-search-inp" /></td>
 		<td>
-		<select class="styledselect">
-			<option value=""> All</option>
-			<option value=""> Products</option>
-			<option value=""> Categories</option>
-			<option value="">Clients</option>
-			<option value="">News</option>
+		<select id="table" name="table" class="styledselect"> 
+			<option value="product">Products</option>
+			<option value="stock">stock</option>
+			<option value="complaints">complaints</option>
+			<option value="customer">customer</option>
 		</select>
 		</td>
 		<td>
@@ -183,13 +183,13 @@ $(document).pngFix( );
 		</td>
 		</tr>
 		</table>
+	</form>
 	</div>
  	<!--  end top-search -->
  	<div class="clear"></div>
 
 </div>
 <!-- End: page-top -->
-
 </div>
 <!-- End: page-top-outer -->
 
@@ -239,12 +239,9 @@ $(document).pngFix( );
 		</div>
 	 
 </div>
-<div class="clear"></div>
-
- 
+<div class="clear"></div> 
 </div>			 
-<div class="clear"></div>
-
+<div class="clear"></div> 
 <div id="content-outer">
 <!-- start content -->
 <div id="content"> 

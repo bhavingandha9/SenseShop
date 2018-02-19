@@ -130,7 +130,7 @@ class ProductDetailView(generic.DetailView):
 class ProductUpdateView(UpdateView):
     template_name = 'update/product_update.html'
     model = product
-    fields = ['pro_name', 'au_id', 'pro_price', 'prodct_dec', 'flag' ]
+    fields = ['pro_name', 'au_id', 'pro_price', 'prodct_dec']
     def dispatch(self,request ,*args, **kwargs):
         if request.session.has_key('myadmin'):
             a = 'hello'
@@ -231,7 +231,7 @@ class FeedbackDetailView(generic.DetailView):
 class FeedbackUpdateView(UpdateView):
     template_name = 'update/feedback_update.html'
     model = feedback
-    fields = ['email', 'mobile', 'f_msg', 'flag']
+    fields = ['email', 'mobile', 'f_msg']
     def dispatch(self,request ,*args, **kwargs):
         if request.session.has_key('myadmin'):
             a = 'hello'
@@ -351,6 +351,37 @@ class OrderDeleteView(DeleteView):
             return redirect('index')
         return super(OrderDeleteView, self).dispatch(request,*args, **kwargs)
 
+
+def search(request):
+    if request.method == "POST":
+        query = request.POST['query']
+        table = request.POST['table']
+        if not query:
+            if table == 'product':
+                product_data = product.objects.filter(pro_name=query)
+                template = loader.get_template('product.html')
+                context = {
+                    'product':product_data, 
+                }
+                return HttpResponse(template.render(context,request))
+            
+            elif table == 'stock':
+                product_data = product.objects.get(pro_name=query)
+                stock_data = stock.objects.filter(pro_id=product_data.id)
+                template = loader.get_template('stock.html')
+                context = {
+                    'stock':stock_data, 
+                }
+                return HttpResponse(template.render(context,request))
+            
+            else:
+                return redirect('index')
+        else:
+            return redirect('index')
+    else:
+            return redirect('index')
+            
+                
 
 def logout(request):
     del request.session['myadmin']
