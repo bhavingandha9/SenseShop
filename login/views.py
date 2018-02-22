@@ -60,4 +60,3 @@ def send(request):
                 return redirect('/?message=success')
 
         return redirect('/?message=failed')
-

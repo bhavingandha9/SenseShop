@@ -3,9 +3,7 @@ from login.models import customer as a
 from django.core.urlresolvers import reverse
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
-#make sure all colums names are in deCAPS
-
+ 
 class product(models.Model):
     pro_name = models.CharField(max_length=250, unique=True)
     au_id = models.DecimalField(max_digits=20,decimal_places=0)
@@ -23,11 +21,14 @@ class product(models.Model):
 
 
 class stock(models.Model):
-    pro_id = models.ForeignKey(product, on_delete=models.CASCADE)
+    pro_id = models.ForeignKey(product, on_delete=models.CASCADE,related_name='product_primary')
     quantity = models.DecimalField(max_digits=3,decimal_places=0)
     flag = models.DecimalField(max_digits=2,decimal_places=0,null=True,blank=True,default=0)
     def __str__(self):
       return str(self.pro_id)
+
+      def __unicode__(self):
+        return unicode(self.pk)
     def get_absolute_url(self):
         return reverse('stock')
   
@@ -36,69 +37,69 @@ class stock(models.Model):
         p = stock(pro_id_id=instance.pk,quantity=0,flag=0)
         p.save()
  
-class warehouse_stock(models.Model):
-    s_id = models.ForeignKey(stock, on_delete=models.CASCADE)
-    quantity = models.DecimalField(max_digits=3,decimal_places=0)
-    flag = models.DecimalField(max_digits=2,decimal_places=0)
-    def __str__(self):
-      return str(self.s_id)
-
-class retail_stock(models.Model):
-    s_id = models.ForeignKey(stock, on_delete=models.CASCADE)
-    quantity = models.DecimalField(max_digits=100,decimal_places=0)
-    flag = models.DecimalField(max_digits=2,decimal_places=0)
-    def __str__(self):
-      return str(self.s_id)
-
-class feedback(models.Model):
-    email = models.CharField(max_length=150)
-    mobile = models.DecimalField(max_digits=10,decimal_places=0)
-    f_msg = models.CharField(max_length=1000)
-    flag =models.DecimalField(max_digits=2,decimal_places=0,null=True,blank=True)
-    def __str__(self):
-      return self.email+'-' +self.f_msg
-    def get_absolute_url(self):
-        return reverse('feedback')
-
+  
 class temp_cart(models.Model):
     pro_id = models.ForeignKey(product)
-    c_id = models.ForeignKey(a)
-    quantity = models.DecimalField(max_digits=50,decimal_places=0)
-    total_amount = models.DecimalField(max_digits=100,decimal_places=0)
+    c_id = models.ForeignKey(a,default=0)
+    quantity = models.DecimalField(max_digits=50,decimal_places=0) 
     flag =models.DecimalField(max_digits=2,decimal_places=0)
+    
     def __str__(self):
-      return str(self.pro_id)+'-' +str(self.c_id)+'-'
+      return str(self.pro_id)+'-' +str(self.c_id) 
     def get_absolute_url(self):
         return reverse('temp_cart')
-
-class payments(models.Model):
-    tc_id = models.ForeignKey(temp_cart)
-    c_id = models.ForeignKey(a)
+ 
+class payments(models.Model): 
+    c_id = models.ForeignKey(a,default=0)
     amount = models.DecimalField(max_digits=100, decimal_places=0)
     transaction_id = models.DecimalField(max_digits=150,decimal_places=0)
     flag =models.DecimalField(max_digits=2,decimal_places=0,null=True,blank=True)
     def __str__(self):
-      return str(self.tc_id) +'-' +str(self.c_id)+'-' +str(self.transaction_id)
+      return str(self.c_id) + '-' + str(self.transaction_id)
     def get_absolute_url(self):
         return reverse('payments')
 
-class order_details(models.Model):
-    tc_id = models.ForeignKey(temp_cart)
+class order_details(models.Model): 
     pay_id = models.ForeignKey(payments)
-    c_id = models.ForeignKey(a)
+    c_id = models.ForeignKey(a,default=0)
+    products = models.CharField(max_length=250,null=True,blank=True)
+    quantity = models.CharField(max_length=250,null=True,blank=True)
     flag =models.DecimalField(max_digits=2,decimal_places=0)
     def __str__(self):
-      return str(self.tc_id) +'-' + str(self.pay_id) +'-' +str(self.c_id)
+      return  str(self.pay_id) +'-' +str(self.c_id)
     def get_absolute_url(self):
         return reverse('order_details')
 
 class complaint(models.Model):
-    email = models.CharField(max_length=150)
-    mobile = models.DecimalField(max_digits=10,decimal_places=0)
-    cm_msg = models.CharField(max_length=1000)
+    c_id = models.ForeignKey(a,default=0)
     o_id = models.ForeignKey(order_details)
+    cm_msg = models.CharField(max_length=1000,null=True,blank=True)
+    replay = models.CharField(max_length=1000,null=True,blank=True)
     flag = models.DecimalField(max_digits=2,decimal_places=0,null=True,blank=True,default=0)
     def __str__(self):
-      return str(self.email)
+      return str(self.cm_msg)
     def get_absolute_url(self):
         return reverse('complaint')
+
+class myadmin(models.Model): 
+    email = models.CharField(max_length=250,default='a')
+    password = models.CharField(max_length=250,default='a') 
+    def __str__(self):
+      return self.email
+    def get_absolute_url(self):
+        return reverse('myadmin')
+
+
+#class warehouse_stock(models.Model):
+#     s_id = models.ForeignKey(stock, on_delete=models.CASCADE)
+#     quantity = models.DecimalField(max_digits=3,decimal_places=0)
+#     flag = models.DecimalField(max_digits=2,decimal_places=0)
+#     def __str__(self):
+#       return str(self.s_id)
+
+# class retail_stock(models.Model):
+#     s_id = models.ForeignKey(stock, on_delete=models.CASCADE)
+#     quantity = models.DecimalField(max_digits=100,decimal_places=0)
+#     flag = models.DecimalField(max_digits=2,decimal_places=0)
+#     def __str__(self):
+#       return str(self.s_id)

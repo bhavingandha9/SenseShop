@@ -7,7 +7,7 @@
                 {% csrf_token %}
                 {% include 'form_template.html' %}
                 <tr><td><button type="submit" class="form-submit">submit</button></td>
-                    <td><input type="reset" value="" class="form-reset" /></td></tr>
+                    <td><button href={% url 'complaint' %} class="form-update">Back</button></td></tr>
             </table>        
         </form>
     </center>

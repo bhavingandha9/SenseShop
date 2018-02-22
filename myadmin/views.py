@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from django.views import generic
 from django.views.generic.edit import CreateView,UpdateView,DeleteView
 from django.core.urlresolvers import reverse_lazy
-from .models import product,complaint,feedback,stock,order_details
+from .models import product,complaint,stock,order_details
 from login.models import customer
 
 def index(request):
@@ -181,7 +181,7 @@ class ComplaintDetailView(generic.DetailView):
 class ComplaintUpdateView(UpdateView):
     template_name = 'update/complaint_update.html'
     model = complaint
-    fields = ['email','mobile','cm_msg','o_id']
+    fields = ['cm_msg' , 'replay']
     def dispatch(self,request ,*args, **kwargs):
         if request.session.has_key('myadmin'):
             a = 'hello'
@@ -201,55 +201,6 @@ class ComplaintDeleteView(DeleteView):
     def get(self, request, *args, **kwargs):
         return self.post(request, *args, **kwargs)
  
-
-class FeedbackIndexView(generic.ListView):
-    template_name = 'feedback.html'
-    context_object_name = 'feedback'
-    model = feedback
-    paginate_by = 5
-
-    def get_queryset(self):
-        return feedback.objects.all()
-    def dispatch(self,request ,*args, **kwargs):
-        if request.session.has_key('myadmin'):
-            a = 'hello'
-        else:
-            return redirect('index')
-        return super(FeedbackIndexView, self).dispatch(request,*args, **kwargs)
-
-class FeedbackDetailView(generic.DetailView):
-    model = feedback
-    template_name = 'detail/feedback_detail.html'
-    context_object_name = 'feedback'
-    def dispatch(self,request ,*args, **kwargs):
-        if request.session.has_key('myadmin'):
-            a = 'hello'
-        else:
-            return redirect('index')
-        return super(FeedbackDetailView, self).dispatch(request,*args, **kwargs)
-
-class FeedbackUpdateView(UpdateView):
-    template_name = 'update/feedback_update.html'
-    model = feedback
-    fields = ['email', 'mobile', 'f_msg']
-    def dispatch(self,request ,*args, **kwargs):
-        if request.session.has_key('myadmin'):
-            a = 'hello'
-        else:
-            return redirect('index')
-        return super(FeedbackUpdateView, self).dispatch(request,*args, **kwargs)
-
-class FeedbackDeleteView(DeleteView):
-    model = feedback
-    success_url = reverse_lazy('feedback')
-    def dispatch(self,request ,*args, **kwargs):
-        if request.session.has_key('myadmin'):
-            a = 'hello'
-        else:
-            return redirect('index')
-        return super(FeedbackDeleteView, self).dispatch(request,*args, **kwargs)
-    def get(self, request, *args, **kwargs):
-        return self.post(request, *args, **kwargs)
  
 
 class StockCreateView(CreateView):
@@ -356,9 +307,9 @@ def search(request):
     if request.method == "POST":
         query = request.POST['query']
         table = request.POST['table']
-        if not query:
+        if query:
             if table == 'product':
-                product_data = product.objects.filter(pro_name=query)
+                product_data = product.objects.filter(pro_name__icontains=query)
                 template = loader.get_template('product.html')
                 context = {
                     'product':product_data, 
@@ -366,14 +317,20 @@ def search(request):
                 return HttpResponse(template.render(context,request))
             
             elif table == 'stock':
-                product_data = product.objects.get(pro_name=query)
+                product_data = product.objects.get(pro_name__icontains=query)
                 stock_data = stock.objects.filter(pro_id=product_data.id)
                 template = loader.get_template('stock.html')
                 context = {
                     'stock':stock_data, 
                 }
                 return HttpResponse(template.render(context,request))
-            
+            elif table == 'customer':
+                customer_data = customer.objects.filter(email__icontains=query)
+                template = loader.get_template('customer.html')
+                context = {
+                    'customer':customer_data, 
+                }
+                return HttpResponse(template.render(context,request))
             else:
                 return redirect('index')
         else:
@@ -386,3 +343,24 @@ def search(request):
 def logout(request):
     del request.session['myadmin']
     return redirect('index')
+
+#
+# def add_customer(request):
+#     if request.method == "POST":
+#         email = request.POST['email']
+#         flag = request.POST['flag']
+#         cname = request.POST['cname']
+#         passoword = request.POST['password']
+#         pro_name = request.POST['pro_name']
+#         a = login_customer.objects.create( )
+#         entry.login_customer.add(a)
+#         customer_data = login_customer.objects.all()
+#         template = loader.get_template('detail/customer_detail.html')
+#         context = {
+#             'customer': customer_data,
+#         }
+#         return HttpResponse(template.render(context, request))
+#     else:
+#         template = loader.get_template('add/customer_form.html')
+#         model = login_customer
+#         return HttpResponse(template.render(context, request))

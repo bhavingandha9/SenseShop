@@ -23,10 +23,7 @@ urlpatterns = [
     url(r'^myadmin/complaint/update/(?P<pk>[0-9]+)/$', b.ComplaintUpdateView.as_view(), name='complaint_update'),
     url(r'^myadmin/complaint/delete/(?P<pk>[0-9]+)/$', b.ComplaintDeleteView.as_view(), name='complaint_delete'),
 
-    url(r'^myadmin/feedback$',b.FeedbackIndexView.as_view(),name='feedback'),
-    url(r'^myadmin/feedback/(?P<pk>[0-9]+)/$',b.FeedbackDetailView.as_view(),name='feedback_detail'),
-    url(r'^myadmin/feedback/update/(?P<pk>[0-9]+)/$', b.FeedbackUpdateView.as_view(), name='feedback_update'),
-    url(r'^myadmin/feedback/delete/(?P<pk>[0-9]+)/$', b.FeedbackDeleteView.as_view(), name='feedback_delete'),
+     
 
     url(r'^myadmin/stock/add$',b.StockCreateView.as_view(),name='stock_add'),
     url(r'^myadmin/stock$', b.StockIndexView.as_view(), name='stock'),
@@ -46,6 +43,6 @@ urlpatterns = [
 
     url(r'^user/$',a.OrderIndexView.as_view(), name='user'),
     url(r'^user/complaint$',a.ComplaintCreateView.as_view(), name='complaintadd'),
-    url(r'^user/feedback$',a.FeedbackCreateView.as_view(), name='feedbackadd'),
+    
     url(r'^user_logout/', a.logout, name='user_logout'),
 ]

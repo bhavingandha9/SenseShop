@@ -13,7 +13,14 @@
 <script src="{% static 'js/jquery/ui.checkbox.js'%}" type="text/javascript"></script>
 <script src="{% static 'js/jquery/jquery.bind.js'%}" type="text/javascript"></script>
 <script type="text/javascript">
+ 
+	
+ 
+
 $(function(){
+	$('#content :input[type=text]').addClass('inp-form');
+	$('#content :input[type=number]').addClass('inp-form');
+	
 	$('input').checkBox();
 	$('#toggle-all').click(function(){
  	$('#toggle-all').toggleClass('toggle-checked');
@@ -222,14 +229,14 @@ $(document).pngFix( );
 				<li><a href="{% url 'stock' %}"><b>Stock</b></a></li></ul>
 			<div class="nav-divider">&nbsp;</div>
 			
-			
+			<ul class="select">
+				<li><a href="{% url 'complaint' %}"><b>Orders</b></a></li></ul>
+				<div class="nav-divider">&nbsp;</div>
+
 			<ul class="select">
 			<li><a href="{% url 'complaint' %}"><b>Complaint</b></a></li></ul>
 			<div class="nav-divider">&nbsp;</div>
-			
-			<ul class="select">
-			<li><a href="{% url 'feedback' %}"><b>Feedback</b></a></li></ul>
-			<div class="nav-divider">&nbsp;</div>
+
 			<ul class="select">
 			<li><a href="{% url 'customer' %}"><b>Customer</b></a></li></ul>
 

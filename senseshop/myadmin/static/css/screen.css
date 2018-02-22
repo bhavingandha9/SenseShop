@@ -627,6 +627,16 @@ a:hover.action-delete	{
 	text-indent: -3000px;
 	width: 80px;
 	}
+.form-update{
+background: url(../images/forms/form_update.gif) no-repeat;
+border: none;
+cursor: pointer;
+display: block;
+float: left;
+height: 30px;
+text-indent: -3000px;
+width: 80px;
+}
 #id-form	{
 	}
 .inp-form	{

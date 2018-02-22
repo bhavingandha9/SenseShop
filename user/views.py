@@ -3,7 +3,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.views import generic
 from django.shortcuts import redirect
 from django.views.generic.edit import CreateView,UpdateView,DeleteView
-from myadmin.models import product,order_details,complaint,feedback
+from myadmin.models import product,order_details,complaint 
 
 class OrderIndexView(generic.ListView):
 
@@ -25,10 +25,7 @@ class ComplaintCreateView(CreateView):
     model = complaint
     fields = ['email','mobile','cm_msg','o_id','flag']
 
-class FeedbackCreateView(CreateView):
-        template_name = 'add/feedback_form.html'
-        model = feedback
-        fields = ['email', 'mobile', 'f_msg', 'flag']
+ 
 
 def logout(request):
             del request.session['user']
