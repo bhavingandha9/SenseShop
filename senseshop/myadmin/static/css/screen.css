@@ -627,17 +627,8 @@ a:hover.action-delete	{
 	text-indent: -3000px;
 	width: 80px;
 	}
-.form-update{
-background: url(../images/forms/form_update.gif) no-repeat;
-border: none;
-cursor: pointer;
-display: block;
-float: left;
-height: 30px;
-text-indent: -3000px;
-width: 80px;
-}
-#id-form	{
+ 
+#id-form{
 	}
 .inp-form	{
 	background: url(../images/forms/form_inp.gif) no-repeat;
@@ -930,7 +921,7 @@ Copyright (c) 2005-2007 Stu Nicholls. All rights reserved. This stylesheet and t
 	font-size: 13px;
 	height: 38px;
 	position: relative;
-	width: 600px;
+	width: 900px;
 	min-width: 600px;
 	z-index: 500;
 	}

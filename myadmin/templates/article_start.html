@@ -180,9 +180,9 @@ $(document).pngFix( );
 		<td>
 		<select id="table" name="table" class="styledselect"> 
 			<option value="product">Products</option>
-			<option value="stock">stock</option>
-			<option value="complaints">complaints</option>
-			<option value="customer">customer</option>
+			<option value="stock">Stock</option>
+			<option value="complaints">Complaints</option>
+			<option value="customer">Customer</option>
 		</select>
 		</td>
 		<td>
@@ -228,18 +228,19 @@ $(document).pngFix( );
 			<ul class="select">
 				<li><a href="{% url 'stock' %}"><b>Stock</b></a></li></ul>
 			<div class="nav-divider">&nbsp;</div>
-			
+			 
 			<ul class="select">
-				<li><a href="{% url 'complaint' %}"><b>Orders</b></a></li></ul>
+				<li><a href="{% url 'orders' %}"><b>Orders</b></a></li></ul>
 				<div class="nav-divider">&nbsp;</div>
 
 			<ul class="select">
 			<li><a href="{% url 'complaint' %}"><b>Complaint</b></a></li></ul>
 			<div class="nav-divider">&nbsp;</div>
-
+			 
 			<ul class="select">
 			<li><a href="{% url 'customer' %}"><b>Customer</b></a></li></ul>
-
+			<div class="nav-divider">&nbsp;</div>
+				
 		<div class="clear"></div>
 		</div>
 		<div class="clear"></div>

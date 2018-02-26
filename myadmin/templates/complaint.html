@@ -31,7 +31,7 @@
                   
                             <tr class="alternate-row">   
                                     <td><b><a href="{% url 'customer' %}">{{ com.c_id }}</a></b></td>
-                                    <td><a>{{ com.o_id }}</a></td>
+                                    <td><a >{{ com.o_id }}</a></td>
                                     <td>{{ com.cm_msg }}</td> 
                                     <td> <a href="{% url "complaint_update" com.id %}" title="Replay" class="icon-1 info-tooltip"> </a>
                                          <a href="{% url "complaint_delete" com.id %}" title="Delete" class="icon-2 info-tooltip"></a>

@@ -5,27 +5,13 @@ from django.shortcuts import redirect
 from django.views import generic
 from django.views.generic.edit import CreateView,UpdateView,DeleteView
 from django.core.urlresolvers import reverse_lazy
-from .models import product,complaint,stock,order_details
+from .models import product,complaint,stock,order_details,payments
 from login.models import customer
 
 def index(request):
     template = loader.get_template('admin_home.html')
     return HttpResponse(template.render(request))
-
-class Adminhome(generic.ListView):
-    template_name = 'admin_home.html'
-    model = product
-    def dispatch(self,request ,*args, **kwargs):
-        if request.session.has_key('myadmin'):
-            a = 'hello'
-        else:
-            return redirect('index')
-        return super(Adminhome, self).dispatch(request,*args, **kwargs)
-
-    def get_queryset(self):
-        return product.objects.all()
-
-
+ 
 class CustomerCreateView(generic.CreateView):
     template_name = 'add/customer_form.html'
     model = customer
@@ -37,8 +23,7 @@ class CustomerCreateView(generic.CreateView):
         else:
             return redirect('index')
         return super(CustomerCreateView, self).dispatch(request, *args, **kwargs)
-
-
+ 
 class CustomerIndexView(generic.ListView):
     template_name = 'customer.html'
     context_object_name = 'customer'
@@ -54,8 +39,7 @@ class CustomerIndexView(generic.ListView):
         else:
             return redirect('index')
         return super(CustomerIndexView, self).dispatch(request, *args, **kwargs)
-
-
+ 
 class CustomerDetailView(generic.DetailView):
     template_name = 'detail/customer_detail.html'
     context_object_name = 'customer'
@@ -67,8 +51,7 @@ class CustomerDetailView(generic.DetailView):
         else:
             return redirect('index')
         return super(CustomerDetailView, self).dispatch(request, *args, **kwargs)
-
-
+ 
 class CustomerUpdateView(UpdateView):
     template_name = 'update/customer_update.html'
     model = customer
@@ -80,8 +63,7 @@ class CustomerUpdateView(UpdateView):
         else:
             return redirect('index')
         return super(CustomerUpdateView, self).dispatch(request, *args, **kwargs)
-
-
+ 
 class CustomerDeleteView(DeleteView):
     model = customer
     success_url = reverse_lazy('order')
@@ -95,6 +77,9 @@ class CustomerDeleteView(DeleteView):
 
     def get(self, request, *args, **kwargs):
         return self.post(request, *args, **kwargs)
+
+
+
 
 
 class ProductCreateView(CreateView):
@@ -253,7 +238,7 @@ class StockUpdateView(UpdateView):
 
 
 class OrderIndexView(generic.ListView):
-    template_name = 'order_details.html'
+    template_name = 'orders.html'
     context_object_name = 'order'
     model = order_details
     paginate_by = 5
@@ -302,6 +287,22 @@ class OrderDeleteView(DeleteView):
             return redirect('index')
         return super(OrderDeleteView, self).dispatch(request,*args, **kwargs)
 
+
+class PaymentsIndexView(generic.ListView):
+    template_name = 'payments.html'
+    context_object_name = 'payments'
+    model = payments
+    paginate_by = 5
+
+    def get_queryset(self):
+        return payments.objects.all()
+    def dispatch(self,request ,*args, **kwargs):
+        if request.session.has_key('myadmin'):
+            a = 'hello'
+        else:
+            return redirect('index')
+        return super(PaymentsIndexView, self).dispatch(request,*args, **kwargs)
+ 
 
 def search(request):
     if request.method == "POST":
