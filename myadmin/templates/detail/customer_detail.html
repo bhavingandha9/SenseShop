@@ -25,20 +25,16 @@
                     <form id="mainform" action="">
                         <table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
                          <tr>
-                            <th class="table-header-repeat line-left"><a>Product</a></th>
-                            <th class="table-header-repeat line-left"><a>Quantity</a></th>
-                            <th class="table-header-repeat line-left"><a>Product Description</a></th>
-                            <th class="table-header-options line-left"><a>Options</a></th>
-
-                        </tr>
-                            {% for cust in customer %}
+                            <th class="table-header-repeat line-left"><a>email</a></th>
+                            <th class="table-header-repeat line-left"><a>mobile number</a></th>
+                            <th class="table-header-repeat line-left"><a>Address</a></th>  
+                        </tr> 
                             <tr class="alternate-row">   
-                                    <td> <b>{{ cust.email }}</b></td>
-                                    <td> {{ cust.mobile_no }}</td>
-                                    <td> {{ cust.address }}</td> 
-                                  
+                                    <td> <b>{{ customer.email }}</b></td>
+                                    <td> {{ customer.mobile_no }}</td>
+                                    <td> {{ customer.address }}</td>  
                                 </tr> 
-                            {% endfor %}
+                         
                         </table>
                     </form>
         </div>

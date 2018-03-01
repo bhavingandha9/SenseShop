@@ -31,8 +31,9 @@
                         </tr>
                             {% for ord in order %}
                             <tr class="alternate-row">   
-                                    <td> <b>{{ ord.c_id }}</b></td>
-                                    <td> {{ ord.pay_id }}</td>
+                                
+                                    <td> <b>{{ ord.c_id }}</b></td> 
+                                    <td> <a href="{% url 'payment_detail' ord.pay_id_id %}">{{ ord.pay_id }}</a> </td> 
                                     <td> {{ ord.products }}</td>
                                     <td> {{ ord.quantity }}</td>                                     
                                     <td> <a href="" title="Update" class="icon-1 info-tooltip"> </a>

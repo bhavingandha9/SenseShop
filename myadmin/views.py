@@ -5,12 +5,17 @@ from django.shortcuts import redirect
 from django.views import generic
 from django.views.generic.edit import CreateView,UpdateView,DeleteView
 from django.core.urlresolvers import reverse_lazy
-from .models import product,complaint,stock,order_details,payments
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+from .models import product,complaint,stock,order_details,payment
 from login.models import customer
 
 def index(request):
-    template = loader.get_template('admin_home.html')
-    return HttpResponse(template.render(request))
+    if request.session.has_key('myadmin'):
+        template = loader.get_template('admin_home.html')
+        return HttpResponse(template.render(request))
+    else:
+        return redirect('index')
  
 class CustomerCreateView(generic.CreateView):
     template_name = 'add/customer_form.html'
@@ -55,7 +60,7 @@ class CustomerDetailView(generic.DetailView):
 class CustomerUpdateView(UpdateView):
     template_name = 'update/customer_update.html'
     model = customer
-    fields = ['email', 'mobile']
+    fields = ['email', 'mobile_no']
 
     def dispatch(self, request, *args, **kwargs):
         if request.session.has_key('myadmin'):
@@ -288,22 +293,34 @@ class OrderDeleteView(DeleteView):
         return super(OrderDeleteView, self).dispatch(request,*args, **kwargs)
 
 
-class PaymentsIndexView(generic.ListView):
-    template_name = 'payments.html'
-    context_object_name = 'payments'
-    model = payments
+class PaymentIndexView(generic.ListView):
+    template_name = 'payment.html'
+    context_object_name = 'payment'
+    model = payment
     paginate_by = 5
 
     def get_queryset(self):
-        return payments.objects.all()
+        return payment.objects.all()
     def dispatch(self,request ,*args, **kwargs):
         if request.session.has_key('myadmin'):
             a = 'hello'
         else:
             return redirect('index')
-        return super(PaymentsIndexView, self).dispatch(request,*args, **kwargs)
+        return super(PaymentIndexView, self).dispatch(request,*args, **kwargs)
  
+class PaymentDetailView(generic.DetailView):
+    template_name = 'detail/payment_detail.html'
+    context_object_name = 'payment'
+    model = payment
+    def dispatch(self,request ,*args, **kwargs):
+        if request.session.has_key('myadmin'):
+            a = 'hello'
+        else:
+            return redirect('index')
+        return super(PaymentDetailView, self).dispatch(request,*args, **kwargs)
 
+
+    
 def search(request):
     if request.method == "POST":
         query = request.POST['query']
@@ -332,6 +349,13 @@ def search(request):
                     'customer':customer_data, 
                 }
                 return HttpResponse(template.render(context,request))
+            elif table == 'transaction_id':
+                payment_data = payment.objects.filter(transaction_id__icontains=query)
+                template = loader.get_template('detail/payment_detail.html')
+                context = {
+                    'payment':payment_data, 
+                }
+                return HttpResponse(template.render(context,request))
             else:
                 return redirect('index')
         else:
@@ -345,7 +369,12 @@ def logout(request):
     del request.session['myadmin']
     return redirect('index')
 
-#
+def handler404(request):
+    response = render_to_response('404.html',{},context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
+
 # def add_customer(request):
 #     if request.method == "POST":
 #         email = request.POST['email']

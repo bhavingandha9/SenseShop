@@ -1,11 +1,6 @@
 {% load staticfiles %}
 {% include 'article_start.html' %}
- 
-<!--  start page-heading -->
-<div id="page-heading">
-        <h1><a href="{% url 'product_add' %}">Add product</a></h1>
-    </div>
-    <!-- end page-heading --> 
+  
     <table border="0" width="100%" cellpadding="0" cellspacing="0" id="content-table">
         <tr>
             <th rowspan="3" class="sized"><img src="{% static 'images/shared/side_shadowleft.jpg'%}" width="20" height="300" alt="" /></th>
@@ -31,9 +26,9 @@
                             <th class="table-header-options line-left"><a>Options</a></th>
 
                         </tr>
-                            {% for pay in payments %}
+                            {% for pay in payment %}
                             <tr class="alternate-row">   
-                                    <td> <b>{{ pay.c_id }}</b></td>
+                                    <td> <b><a href="{% url 'payment_detail' pay.id %}"> {{ pay.c_id }}</a></b></td>
                                     <td> {{ pay.amount }}</td>
                                     <td> {{ pay.transaction_id }}</td> 
                                     <td> <a href=" " title="Update" class="icon-1 info-tooltip"> </a>

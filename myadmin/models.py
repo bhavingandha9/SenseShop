@@ -6,7 +6,7 @@ from django.dispatch import receiver
  
 class product(models.Model):
     pro_name = models.CharField(max_length=250, unique=True)
-    au_id = models.DecimalField(max_digits=20,decimal_places=0)
+    au_id = models.DecimalField(max_digits=20,decimal_places=0,unique=True)
     pro_price = models.DecimalField(max_digits=5, decimal_places=0)
     prodct_dec =models.CharField(max_length=1000)
     flag =models.DecimalField(max_digits=2,decimal_places=0,null=True,blank=True,default=0)
@@ -27,7 +27,7 @@ class stock(models.Model):
     def __str__(self):
       return str(self.pro_id)
 
-      def __unicode__(self):
+    def __unicode__(self):
         return unicode(self.pk)
     def get_absolute_url(self):
         return reverse('stock')
@@ -49,18 +49,19 @@ class temp_cart(models.Model):
     def get_absolute_url(self):
         return reverse('temp_cart')
  
-class payments(models.Model): 
+class payment(models.Model): 
     c_id = models.ForeignKey(a,default=0)
     amount = models.DecimalField(max_digits=100, decimal_places=0)
-    transaction_id = models.DecimalField(max_digits=150,decimal_places=0)
+    transaction_id = models.DecimalField(max_digits=150,decimal_places=0,unique=True)
     flag =models.DecimalField(max_digits=2,decimal_places=0,null=True,blank=True)
+    def __unicode__(self):
+        return unicode(self.pk)
     def __str__(self):
-      return str(self.c_id) + '-' + str(self.transaction_id)
-    def get_absolute_url(self):
-        return reverse('payments')
+        return str(self.amount)
+
 
 class order_details(models.Model): 
-    pay_id = models.ForeignKey(payments)
+    pay_id = models.ForeignKey(payment,related_name='payment')
     c_id = models.ForeignKey(a,default=0)
     products = models.CharField(max_length=250,null=True,blank=True)
     quantity = models.CharField(max_length=250,null=True,blank=True)

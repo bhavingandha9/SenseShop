@@ -30,7 +30,7 @@
                     </tr>
                         {% for stk in stock %}
                         <tr class="alternate-row">   
-                            <td> <b>{{ stk.pro_id }}</b></td>
+                            <td><a href="{% url 'product_detail' stk.pro_id_id %}"> <b>{{ stk.pro_id }}</b></a></td>
                             <td> {{ stk.quantity }}</td>
                             <td> <a href="{% url "stock_update" stk.id %}" title="Edit" class="icon-1 info-tooltip"> </a></td>
                         </tr>

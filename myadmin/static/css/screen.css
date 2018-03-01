@@ -385,7 +385,7 @@ td.checkbox-width	{
 	}
 .table-header-options a,
  .table-header-repeat a	{
-	background: url(../images/table/table_sort_arrow.gif) right no-repeat;
+	/* background: url(../images/table/table_sort_arrow.gif) right no-repeat; */
 	color: #fff;
 	font-family: Tahoma;
 	font-size: 13px;

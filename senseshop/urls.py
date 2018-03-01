@@ -1,10 +1,16 @@
-from django.conf.urls import url
+from django.conf.urls import url,handler404,include
+from django.conf import settings
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 from django.contrib import admin
 from login import views
 from user import views as a
-from myadmin import views as b
+from myadmin import views as b 
 
+handler404 = b.handler404
+ 
 urlpatterns = [
+    url('', include('pwa.urls')),
     url(r'^$',views.index, name='index'),
 
     url(r'^login_check/$', views.login_check,name='login_check'),
@@ -28,15 +34,17 @@ urlpatterns = [
     url(r'^myadmin/stock/(?P<pk>[0-9]+)/$', b.StockDetailView.as_view(), name='stock_detail'),
     url(r'^myadmin/stock/update/(?P<pk>[0-9]+)/$', b.StockUpdateView.as_view(), name='stock_update'),
  
-    url(r'^myadmin/customer', b.CustomerIndexView.as_view(), name='customer'),
+    url(r'^myadmin/customer$', b.CustomerIndexView.as_view(), name='customer'),
     url(r'^myadmin/customer/(?P<pk>[0-9]+)/$', b.CustomerDetailView.as_view(), name='customer_detail'),
     url(r'^myadmin/customer/add$', b.CustomerCreateView.as_view(), name='customer_add'),
-    url(r'^myadmin/customer/delete/(?P<pk>[0-9]+)/$', b.CustomerUpdateView.as_view(), name='customer_delete'),
-    url(r'^myadmin/customer/update/(?P<pk>[0-9]+)/$', b.CustomerDeleteView.as_view(), name='customer_update'),
+    url(r'^myadmin/customer/delete/(?P<pk>[0-9]+)/$', b.CustomerDeleteView.as_view(), name='customer_delete'),
+    url(r'^myadmin/customer/update/(?P<pk>[0-9]+)/$', b.CustomerUpdateView.as_view(), name='customer_update'),
     
-    url(r'^myadmin/payments', b.PaymentsIndexView.as_view(), name='payments'),
+    url(r'^myadmin/payment$', b.PaymentIndexView.as_view(), name='payment'),
+    url(r'^myadmin/payment/(?P<pk>[0-9]+)/$', b.PaymentDetailView.as_view(), name='payment_detail'),
 
     url(r'^myadmin/orders$',b.OrderIndexView.as_view(),name='orders'),
+    url(r'^myadmin/orders/(?P<pk>[0-9]+)/$', b.OrderDetailView.as_view(), name='orders_detail'),
     
     url(r'^myadmin/search',b.search , name='myadmin_search'),
 
@@ -47,3 +55,10 @@ urlpatterns = [
     
     url(r'^user_logout/', a.logout, name='user_logout'),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+
+    urlpatterns += [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ]

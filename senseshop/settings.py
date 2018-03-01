@@ -15,12 +15,14 @@ SECRET_KEY = 'i2ru*2pou#@2y8u*dr9h4pc=q&bhm-^o+idwbuy#v!&^fa1lm5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
+INTERNAL_IPS = ['127.0.0.1',]
 
 # Application definition
 
 INSTALLED_APPS = [
+    'pwa',
+    'debug_toolbar',
     'myadmin.apps.MyAdminConfig',
     'login.apps.LoginConfig',
     'django.contrib.admin',
@@ -29,11 +31,39 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'user.apps.UserConfig',
-
+    'user.apps.UserConfig', 
 ]
 
+PWA_APP_NAME = 'SenseShop'
+PWA_APP_DESCRIPTION = 'It a advance shop'
+PWA_APP_THEME_COLOR = '#00000'
+PWA_APP_ICONS = [
+    {
+        'src': '/static/images/shared/logo.png',
+        'sizes': '160x160'
+    }
+]
+
+DEBUG_TOOLBAR_PANELS = [
+    'debug_toolbar.panels.versions.VersionsPanel',
+    'debug_toolbar.panels.timer.TimerPanel',
+    'debug_toolbar.panels.settings.SettingsPanel',
+    'debug_toolbar.panels.headers.HeadersPanel',
+    'debug_toolbar.panels.request.RequestPanel',
+    'debug_toolbar.panels.sql.SQLPanel',
+    'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+    'debug_toolbar.panels.templates.TemplatesPanel',
+    'debug_toolbar.panels.cache.CachePanel',
+    'debug_toolbar.panels.signals.SignalsPanel',
+    'debug_toolbar.panels.logging.LoggingPanel',
+    'debug_toolbar.panels.redirects.RedirectsPanel',
+]
+DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+}
+
 MIDDLEWARE_CLASSES = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -114,15 +144,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/' 
+STATIC_ROOT = 'senseshop/myadmin/static' 
 
-STATIC_ROOT = 'senseshop/myadmin/static'
-
+# email config
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'bhavin.gandha@gmail.com'
 EMAIL_HOST_PASSWORD = 'myangle9126'
 EMAIL_USE_SSL = True
-
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

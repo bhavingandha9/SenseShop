@@ -23,10 +23,9 @@ class OrderDetailView(generic.DetailView):
 class ComplaintCreateView(CreateView):
     template_name = 'add/complaint_form.html'
     model = complaint
-    fields = ['email','mobile','cm_msg','o_id','flag']
+    fields = ['c_id','cm_msg','o_id','replay','flag']
 
- 
-
+  
 def logout(request):
             del request.session['user']
             return redirect('index')

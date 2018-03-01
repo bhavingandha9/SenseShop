@@ -30,8 +30,8 @@
                         {{ com.email }}
                   
                             <tr class="alternate-row">   
-                                    <td><b><a href="{% url 'customer' %}">{{ com.c_id }}</a></b></td>
-                                    <td><a >{{ com.o_id }}</a></td>
+                                    <td><b><a href="{% url 'customer_detail' com.c_id_id %}">{{ com.c_id }}</a></b></td>
+                                    <td><a href="{% url 'order_details' com.o_id_id">{{ com.o_id }}</a></td>
                                     <td>{{ com.cm_msg }}</td> 
                                     <td> <a href="{% url "complaint_update" com.id %}" title="Replay" class="icon-1 info-tooltip"> </a>
                                          <a href="{% url "complaint_delete" com.id %}" title="Delete" class="icon-2 info-tooltip"></a>

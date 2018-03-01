@@ -1,7 +1,9 @@
 {% load staticfiles %}
+{% load pwa %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+		{% progressive_web_app_meta %}
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>SenseShop</title> 
 <link rel="stylesheet" href="{% static 'css/screen.css'%} " type="text/css" media="screen" title="default" />
@@ -14,9 +16,6 @@
 <script src="{% static 'js/jquery/jquery.bind.js'%}" type="text/javascript"></script>
 <script type="text/javascript">
  
-	
- 
-
 $(function(){
 	$('#content :input[type=text]').addClass('inp-form');
 	$('#content :input[type=number]').addClass('inp-form');
@@ -156,8 +155,12 @@ $(document).ready(function(){
 $(document).pngFix( );
 });
 </script>
+
 </head>
 <body>
+<script>
+		 
+</script>
 <!-- Start: page-top-outer -->
 <div id="page-top-outer">
 
@@ -183,6 +186,8 @@ $(document).pngFix( );
 			<option value="stock">Stock</option>
 			<option value="complaints">Complaints</option>
 			<option value="customer">Customer</option>
+			<option value="transaction_id">Transaction id</option>
+			
 		</select>
 		</td>
 		<td>
@@ -192,7 +197,7 @@ $(document).pngFix( );
 		</table>
 	</form>
 	</div>
- 	<!--  end top-search -->
+ 	<!--  end top-search -->	
  	<div class="clear"></div>
 
 </div>
@@ -223,6 +228,7 @@ $(document).pngFix( );
 
 		<ul class="select">
 			<li><a href="{% url 'product' %} "><b>Product</b></a></li></ul>
+			<div class="select_sub"></div>
 			<div class="nav-divider">&nbsp;</div>
 	
 			<ul class="select">
