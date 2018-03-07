@@ -12,8 +12,7 @@ class product(models.Model):
     flag =models.DecimalField(max_digits=2,decimal_places=0,null=True,blank=True,default=0)
 
     def get_absolute_url(self):
-        return reverse('product')
-
+        return reverse('product') 
     def __str__(self):
       return self.pro_name
     def __unicode__(self):
@@ -67,7 +66,7 @@ class order_details(models.Model):
     quantity = models.CharField(max_length=250,null=True,blank=True)
     flag =models.DecimalField(max_digits=2,decimal_places=0)
     def __str__(self):
-      return  str(self.pay_id) +'-' +str(self.c_id)
+      return  str(self.id)
     def get_absolute_url(self):
         return reverse('order_details')
 

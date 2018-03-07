@@ -1,5 +1,7 @@
 {% load staticfiles %}
 {% include 'article_start.html' %}
-    {{ order.tc_id }}
-{{ order.pay_id }}
+     <center><b>Payment ID:</b>{{ order.pay_id }}<br>
+     <b>Customer:</b>{{ order.c_id }}<br>
+     <b>Products:</b>{{ order.products }}<br>
+     <b>Quantities:</b>{{ order.quantity }}<br></center>
 {% include 'article_close.html' %}

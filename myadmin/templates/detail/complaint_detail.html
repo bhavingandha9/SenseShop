@@ -1,6 +1,8 @@
 {% load staticfiles %}
 {% include 'article_start.html' %}
 
-    {{ complaint.email }}
-<a href="{% url 'complaint_update' complaint.id %}">update</a>
+    {{ complaint.c_id }}
+    {{ complaint.o_id }}
+    {{ complaint.cm_msg }}
+    {{ complaint.replay }} 
 {% include 'article_close.html' %}

@@ -176,7 +176,7 @@ $(document).pngFix( );
 	<!--  start top-search -->
 	<div id="top-search">
 	<form action="{% url 'myadmin_search' %}" method="POST">
-			{% csrf_token %}	
+		{% csrf_token %}	
 		<table border="0" cellpadding="0" cellspacing="0">
 		<tr>
 		<td><input type="text" id="query" style="width:140px" name="query" value="Search" onblur="if (this.value=='') { this.value='Search'; }" onfocus="if (this.value=='Search') { this.value=''; }" class="top-search-inp" /></td>

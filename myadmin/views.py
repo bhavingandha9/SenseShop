@@ -146,7 +146,7 @@ class ComplaintIndexView(generic.ListView):
     template_name = 'complaint.html'
     context_object_name = 'complaint'
     model = complaint
-    paginate_by = 2
+    paginate_by = 10
 
     def get_queryset(self):
         return complaint.objects.all()
@@ -318,8 +318,7 @@ class PaymentDetailView(generic.DetailView):
         else:
             return redirect('index')
         return super(PaymentDetailView, self).dispatch(request,*args, **kwargs)
-
-
+ 
     
 def search(request):
     if request.method == "POST":
@@ -356,15 +355,19 @@ def search(request):
                     'payment':payment_data, 
                 }
                 return HttpResponse(template.render(context,request))
+            elif table == 'complaint':
+                complaint_data = complaint.objects.filter(cm_msg_icontains = query)
+                template = loader.get_template('detail/complaint_detail.html')
+                context = {
+                    'complaint':complaint_data
+                }
             else:
                 return redirect('index')
         else:
             return redirect('index')
     else:
             return redirect('index')
-            
-                
-
+          
 def logout(request):
     del request.session['myadmin']
     return redirect('index')
@@ -373,24 +376,4 @@ def handler404(request):
     response = render_to_response('404.html',{},context_instance=RequestContext(request))
     response.status_code = 404
     return response
-
-
-# def add_customer(request):
-#     if request.method == "POST":
-#         email = request.POST['email']
-#         flag = request.POST['flag']
-#         cname = request.POST['cname']
-#         passoword = request.POST['password']
-#         pro_name = request.POST['pro_name']
-#         a = login_customer.objects.create( )
-#         entry.login_customer.add(a)
-#         customer_data = login_customer.objects.all()
-#         template = loader.get_template('detail/customer_detail.html')
-#         context = {
-#             'customer': customer_data,
-#         }
-#         return HttpResponse(template.render(context, request))
-#     else:
-#         template = loader.get_template('add/customer_form.html')
-#         model = login_customer
-#         return HttpResponse(template.render(context, request))
+ 
