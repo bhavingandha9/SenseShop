@@ -19,7 +19,17 @@ ALLOWED_HOSTS = ['*']
 INTERNAL_IPS = ['127.0.0.1',]
 
 # Application definition
-
+PWA_APP_NAME = 'Senseshop'
+PWA_APP_DESCRIPTION = "Do kickass things all day long without that pesky browser chrome"
+PWA_APP_THEME_COLOR = '#0A0302'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_START_URL = '/'
+PWA_APP_ICONS = [
+    {
+        'src': '/static/images/shared/logo.png', 
+        'sizes': '160x160'
+    }
+]
 INSTALLED_APPS = [
     'pwa',
     'debug_toolbar',
@@ -32,18 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user.apps.UserConfig', 
+    'paypal.standard.ipn',
+    'payment',
 ]
-
-PWA_APP_NAME = 'SenseShop'
-PWA_APP_DESCRIPTION = 'It a advance shop'
-PWA_APP_THEME_COLOR = '#00000'
-PWA_APP_ICONS = [
-    {
-        'src': '/static/images/shared/logo.png',
-        'sizes': '160x160'
-    }
-]
-
+  
 DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.versions.VersionsPanel',
     'debug_toolbar.panels.timer.TimerPanel',
@@ -151,7 +153,14 @@ STATIC_ROOT = 'senseshop/myadmin/static'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'bhavin.gandha@gmail.com'
-EMAIL_HOST_PASSWORD = 'myangle9126'
+EMAIL_HOST_USER = 'bhavin.gandha15@gecg28.ac.in'
+EMAIL_HOST_PASSWORD = 'kishan09'
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+MEDIA_ROOT = 'user/static/product_images'
+MDEIA_URL = 'user/static/product_images'
+
+#django-paypal
+PAYPAL_RECEIVER_EMAIL = 'bhavin-merchant2@gmail.com'
+PAYPAL_TEST =  True 

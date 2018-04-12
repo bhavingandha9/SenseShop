@@ -39,6 +39,7 @@ def login_check(request):
     if flag == 1:
         request.session['user'] = form_user
         request.session.modified = True
+        
         return redirect('user')
     elif flag == 2:
         request.session['myadmin'] = form_user

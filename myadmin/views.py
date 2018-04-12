@@ -61,6 +61,7 @@ class CustomerUpdateView(UpdateView):
     template_name = 'update/customer_update.html'
     model = customer
     fields = ['email', 'mobile_no']
+    success_url = reverse_lazy('customer')
 
     def dispatch(self, request, *args, **kwargs):
         if request.session.has_key('myadmin'):
@@ -83,16 +84,21 @@ class CustomerDeleteView(DeleteView):
     def get(self, request, *args, **kwargs):
         return self.post(request, *args, **kwargs)
 
-
-
-
+ 
 
 class ProductCreateView(CreateView):
     template_name = 'add/product_form.html'
     model = product
-    fields = ['pro_name', 'au_id', 'pro_price', 'prodct_dec' ,'flag' ]
+    fields = ['pro_name', 'au_id', 'pro_price', 'prodct_dec' ,'flag','image' ]
+    
+    def dispatch(self,request ,*args, **kwargs):
+        if request.session.has_key('myadmin'):
+            a = 'hello'
+        else:
+            return redirect('index')
+        return super(ProductCreateView, self).dispatch(request,*args, **kwargs)
 
-class ProductIndexView(generic.ListView):
+class ProductIndexView(generic.ListView):   
     template_name = 'product.html'
     context_object_name = 'product'
     model = product
@@ -121,6 +127,8 @@ class ProductUpdateView(UpdateView):
     template_name = 'update/product_update.html'
     model = product
     fields = ['pro_name', 'au_id', 'pro_price', 'prodct_dec']
+    success_url = reverse_lazy('product')
+    
     def dispatch(self,request ,*args, **kwargs):
         if request.session.has_key('myadmin'):
             a = 'hello'
@@ -172,6 +180,8 @@ class ComplaintUpdateView(UpdateView):
     template_name = 'update/complaint_update.html'
     model = complaint
     fields = ['cm_msg' , 'replay']
+    success_url = reverse_lazy('complaint')
+    
     def dispatch(self,request ,*args, **kwargs):
         if request.session.has_key('myadmin'):
             a = 'hello'
@@ -233,6 +243,8 @@ class StockUpdateView(UpdateView):
     template_name = 'update/stock_update.html'
     model = stock
     fields = {'quantity'}
+    success_url = reverse_lazy('stock')
+    
     def dispatch(self,request ,*args, **kwargs):
         if request.session.has_key('myadmin'):
             a = 'hello'
@@ -284,7 +296,8 @@ class OrderUpdateView(UpdateView):
 
 class OrderDeleteView(DeleteView):
     model = order_details
-    success_url = reverse_lazy('order')
+    success_url = reverse_lazy('orders')
+
     def dispatch(self,request ,*args, **kwargs):
         if request.session.has_key('myadmin'):
             a = 'hello'
@@ -292,6 +305,8 @@ class OrderDeleteView(DeleteView):
             return redirect('index')
         return super(OrderDeleteView, self).dispatch(request,*args, **kwargs)
 
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
 
 class PaymentIndexView(generic.ListView):
     template_name = 'payment.html'

@@ -37,7 +37,7 @@
                                     <td> {{ pro.pro_price }}</td>
                                     <td> {{ pro.prodct_dec }}</td> 
                                     <td> <a href="{% url "product_update" pro.id %}" title="Update" class="icon-1 info-tooltip"> </a>
-                                         <a href="{% url "product_delete" pro.id %}" title="Delete" class="icon-2 info-tooltip"></a>
+                                         <a href="{% url 'product_delete' pro.id %}" title="Delete" class="icon-2 info-tooltip"></a>
                                     </td>
                                 </tr> 
                             {% endfor %}

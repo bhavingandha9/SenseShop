@@ -37,7 +37,7 @@
                                     <td> {{ ord.products }}</td>
                                     <td> {{ ord.quantity }}</td>                                     
                                     <td> <a href="" title="Update" class="icon-1 info-tooltip"> </a>
-                                         <a href="" title="Delete" class="icon-2 info-tooltip"></a>
+                                         <a href="{% url 'order_delete' ord.id %}" title="Delete" class="icon-2 info-tooltip"></a>
                                     </td>
                                 </tr> 
                             {% endfor %}

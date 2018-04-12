@@ -9,6 +9,8 @@ class product(models.Model):
     au_id = models.DecimalField(max_digits=20,decimal_places=0,unique=True)
     pro_price = models.DecimalField(max_digits=5, decimal_places=0)
     prodct_dec =models.CharField(max_length=1000)
+    image = models.ImageField(blank = True)
+
     flag =models.DecimalField(max_digits=2,decimal_places=0,null=True,blank=True,default=0)
 
     def get_absolute_url(self):
@@ -71,7 +73,7 @@ class order_details(models.Model):
         return reverse('order_details')
 
 class complaint(models.Model):
-    c_id = models.ForeignKey(a,default=0)
+    c_id = models.ForeignKey(a,default=0,null=True,blank=True)
     o_id = models.ForeignKey(order_details)
     cm_msg = models.CharField(max_length=1000,null=True,blank=True)
     replay = models.CharField(max_length=1000,null=True,blank=True)

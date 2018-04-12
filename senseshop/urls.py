@@ -17,7 +17,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls, name='admin'),
     url(r'^forgot_password/',views.send, name='forgot_password'),
 
-    url(r'^myadmin/$', b.index, name='myadmin'),
+    url(r'^myadmin/$', b.ProductIndexView.as_view(), name='myadmin'),
     url(r'^myadmin/product/$',b.ProductIndexView.as_view(),name='product'),
     url(r'^myadmin/product/(?P<pk>[0-9]+)/$',b.ProductDetailView.as_view(),name='product_detail'),
     url(r'^myadmin/product/add$', b.ProductCreateView.as_view(), name='product_add'),
@@ -45,15 +45,35 @@ urlpatterns = [
 
     url(r'^myadmin/orders$',b.OrderIndexView.as_view(),name='orders'),
     url(r'^myadmin/orders/(?P<pk>[0-9]+)/$', b.OrderDetailView.as_view(), name='orders_detail'),
+    url(r'^myadmin/orders/delete/(?P<pk>[0-9]+)/$', b.OrderDeleteView.as_view(), name='order_delete'),
+    
     
     url(r'^myadmin/search',b.search , name='myadmin_search'),
 
     url(r'^myadmin_logout/', b.logout, name='myadmin_logout'),
 
-    url(r'^user/$',a.OrderIndexView.as_view(), name='user'),
+    url(r'^user/$',a.Userhome.as_view(), name='user'),
     url(r'^user/complaint$',a.ComplaintCreateView.as_view(), name='complaintadd'),
-    
+    url(r'^user/order$',a.OrderIndexView.as_view(), name='order'),
+    url(r'^user/order_detail/(?P<pk>[0-9]+)/$', a.OrderDetailView.as_view(), name='order_details'),
+    url(r'^user/add2cart$', a.add2cart, name='add2cart'),    
     url(r'^user_logout/', a.logout, name='user_logout'),
+    url(r'^user/cart$', a.Cart.as_view(), name='cart'),
+    url(r'^user/quantity_inc$', a.quantity_inc, name='quantity_inc'),
+    url(r'^user/quantity_dec$', a.quantity_dec, name='quantity_dec'),
+    url(r'^user/remove_product$', a.remove_product, name='remove_product'),
+    url(r'^user/checkout$', a.checkout, name='checkout'),
+    url(r'^user/payment$', a.payment, name='user_payment'),    
+    url(r'^user/search',a.search , name='user_search'),
+    url(r'^paypal/',include('paypal.standard.ipn.urls')),
+    url(r'^payment/',include('payment.urls', namespace = 'payment')),
+    
+    
+    
+    
+    url('^serviceworker.js$', a.service_worker),
+    url('^manifest.json$', a.manifest,name ='manifest.json'),
+    url('', include('pwa.urls')),
 ]
 
 if settings.DEBUG:
