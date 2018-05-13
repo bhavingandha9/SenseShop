@@ -5,11 +5,13 @@ from django.shortcuts import render, get_object_or_404
 from paypal.standard.forms import PayPalPaymentsForm
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
+from django.http import HttpResponse
 
 
 @csrf_exempt
 def payment_done(request):
-    return redirect('checkout')
+    html = request
+    return HttpResponse(html)
 
 @csrf_exempt
 def payment_canceled(request):
@@ -22,9 +24,9 @@ def payment_process(request):
         'amount': amount,
         'item_name': 'abc',
         'currency_code': 'INR',
-        'notify_url': 'http://localhost:8000{}'.format(reverse('paypal-ipn')),
-        'return_url': 'http://localhost:8000{}'.format(reverse('payment:done')),
-        'cancel_url': 'http://localhost:8000{}'.format(reverse('payment:canceled')),
+        'notify_url': 'http://senseshop.tk{}'.format(reverse('paypal-ipn')),
+        'return_url': 'http://senseshop.tk{}'.format(reverse('payment:done')),
+        'cancel_url': 'http://senseshop.tk{}'.format(reverse('payment:canceled')),
     }
     form = PayPalPaymentsForm(initial = paypal_dict)
     return render(request,'payment/process.html',{'form': form })
