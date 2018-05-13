@@ -57,7 +57,7 @@ def send(request):
         result = 'hello'
         for users in all_users:
             if users.email in email:
-                send_mail('PasswordReset', users.password , 'senseshop', [users.email])
+                hh
                 return redirect('/?message=success')
 
         return redirect('/?message=failed')

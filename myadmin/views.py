@@ -9,6 +9,8 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from .models import product,complaint,stock,order_details,payment
 from login.models import customer
+from django.core.mail import send_mail
+
 
 def index(request):
     if request.session.has_key('myadmin'):
@@ -188,6 +190,12 @@ class ComplaintUpdateView(UpdateView):
         else:
             return redirect('index')
         return super(ComplaintUpdateView, self).dispatch(request,*args, **kwargs)
+    
+    def form_valid(self,form):
+        complaint_object = complaint.objects.get(pk=self.kwargs['pk'])
+        msg = form.instance.replay
+        send_mail('Complaint Replay', msg , 'senseshop', [complaint_object.c_id.email])
+        return super(ComplaintUpdateView, self).form_valid(form)
 
 class ComplaintDeleteView(DeleteView):
     model = complaint

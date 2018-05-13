@@ -28,12 +28,14 @@ class Userhome(generic.ListView):
         return product.objects.all()
         
 class OrderIndexView(generic.ListView): 
-    template_name = 'user_home.html'
+    template_name = 'orderdetails.html'
     context_object_name = 'order'
     model = order_details
 
     def get_queryset(self): 
-       return order_details.objects.all()
+        user = self.request.session['user']        
+        user_object = customer.objects.get(email = user )
+        return order_details.objects.filter(c_id_id=user_object.id)
     def dispatch(self,request ,*args, **kwargs):
         if request.session.has_key('user'):
             a = 'hello'
@@ -51,17 +53,40 @@ class OrderDetailView(generic.DetailView):
             return redirect('index')
         return super(OrderDetailView, self).dispatch(request,*args, **kwargs)
 
-class ComplaintCreateView(CreateView):
-    template_name = 'add/complaint_form.html'
-    model = complaint
-    fields = ['cm_msg','o_id']
-    success_url = reverse_lazy('myadmin') 
-    def dispatch(self,request ,*args, **kwargs):
-        if request.session.has_key('user'):
-            a = request.session['user']
-        else:
-            return redirect('index')
-        return super(ComplaintCreateView, self).dispatch(request,*args, **kwargs)
+def complaint_form(request):
+    template = loader.get_template('add/complaint_form.html')
+    context = {
+                    'o_id':request.GET['o_id'], 
+              }
+    return HttpResponse(template.render(context,request))
+
+def ComplaintCreate(request):
+    if request.session.has_key('user'):
+        a = request.session['user']
+        b = customer.objects.get(email = a )
+        order_id = request.POST.get('o_id')
+        msg = request.POST.get('cm_msg')
+        newComplaint = complaint(c_id_id=b.id,o_id_id=order_id,cm_msg=msg)
+        newComplaint.save()
+       
+        #return HttpResponse(b.id)
+        return redirect('user_order')
+    else:
+         return redirect('index')
+        
+
+
+# class ComplaintCreateView(CreateView):
+#     template_name = 'add/complaint_form.html'
+#     model = complaint
+#     fields = ['cm_msg','o_id']
+#     success_url = reverse_lazy('myadmin') 
+#     def dispatch(self,request ,*args, **kwargs):
+#         if request.session.has_key('user'):
+#             a = request.session['user']
+#         else:
+#             return redirect('index')
+#         return super(ComplaintCreateView, self).dispatch(request,*args, **kwargs)
     
     def form_valid(self,form):
         a = self.request.session['user']

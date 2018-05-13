@@ -53,9 +53,10 @@ urlpatterns = [
     url(r'^myadmin_logout/', b.logout, name='myadmin_logout'),
 
     url(r'^user/$',a.Userhome.as_view(), name='user'),
-    url(r'^user/complaint$',a.ComplaintCreateView.as_view(), name='complaintadd'),
-    url(r'^user/order$',a.OrderIndexView.as_view(), name='order'),
-    url(r'^user/order_detail/(?P<pk>[0-9]+)/$', a.OrderDetailView.as_view(), name='order_details'),
+    url(r'^user/complaint$',a.complaint_form, name='user_complaint'),
+    url(r'^user/complaint/add$',a.ComplaintCreate,name='complaintadd'),
+    url(r'^user/order$',a.OrderIndexView.as_view(), name='user_order'),
+    url(r'^user/order_detail/(?P<pk>[0-9]+)/$', a.OrderDetailView.as_view(), name='user_order_details'),
     url(r'^user/add2cart$', a.add2cart, name='add2cart'),    
     url(r'^user_logout/', a.logout, name='user_logout'),
     url(r'^user/cart$', a.Cart.as_view(), name='cart'),

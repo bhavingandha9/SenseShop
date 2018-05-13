@@ -59,11 +59,22 @@ label{
   border-color: #FDA30E;
 
 }
+
 .btn1:hover{
   background-color:#fff ;
   color: #FDA30E;
   border-color: #FDA30E;
 
+}
+.btn_cart{
+	background-color: #FDA30E;
+	color: #fff;
+	border-color: #FDA30E;
+}
+.btn_cart:hover{
+	background-color:#fff ;
+	color: #FDA30E;
+	border-color: #FDA30E;
 }
 .details_heading h3{
   text-align: center;
@@ -198,7 +209,8 @@ label{
     padding: 14px 10px;
     color: #848484;
     font-size: 16px;
-    border-right: 1px solid #eee;
+	border-right: 1px solid #eee;
+	height: 50px;
 }
 .section_room select {
     padding: 13px 10px;
@@ -1321,12 +1333,17 @@ h2.resp-accordion {
 }
 .resp-tab-content {
 	display: none;
+	
 }
 .resp-content-active, .resp-accordion-active {
    display: block;
 }
 .product-men img {
-    width: 100%;
+    width: 250px;
+	height: 200px;
+}
+.product-men{
+	margin-top: 20px;
 }
 .product-easy {
     padding: 90px 0;

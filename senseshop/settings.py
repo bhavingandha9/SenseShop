@@ -153,8 +153,8 @@ STATIC_ROOT = 'senseshop/myadmin/static'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'bhavin.gandha15@gecg28.ac.in'
-EMAIL_HOST_PASSWORD = 'kishan09'
+EMAIL_HOST_USER = 'bhavin.gandha@gmail.com'
+EMAIL_HOST_PASSWORD = 'myangle9126'
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
