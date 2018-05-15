@@ -23,17 +23,12 @@
                             <th class="table-header-repeat line-left"><a>Customer</a></th>
                             <th class="table-header-repeat line-left"><a>Amount</a></th>
                             <th class="table-header-repeat line-left"><a>Transaction id</a></th>
-                            <th class="table-header-options line-left"><a>Options</a></th>
-
                         </tr>
                             {% for pay in payment %}
                             <tr class="alternate-row">   
                                     <td> <b><a href="{% url 'payment_detail' pay.id %}"> {{ pay.payer_email }}</a></b></td>
                                     <td> {{ pay.mc_gross }}</td>
-                                    <td> {{ pay.txn_id }}</td> 
-                                    <td> <a href=" " title="Update" class="icon-1 info-tooltip"> </a>
-                                         <a href="" title="Delete" class="icon-2 info-tooltip"></a>
-                                    </td>
+                                    <td> {{ pay.txn_id }}</td>  
                                 </tr> 
                             {% endfor %}
                         </table>
