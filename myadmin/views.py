@@ -10,6 +10,7 @@ from django.template import RequestContext
 from .models import product,complaint,stock,order_details,payment
 from login.models import customer
 from django.core.mail import send_mail
+from paypal.standard.ipn.models import PayPalIPN
 
 
 def index(request):
@@ -319,11 +320,11 @@ class OrderDeleteView(DeleteView):
 class PaymentIndexView(generic.ListView):
     template_name = 'payment.html'
     context_object_name = 'payment'
-    model = payment
+    model = PayPalIPN
     paginate_by = 5
 
     def get_queryset(self):
-        return payment.objects.all()
+        return PayPalIPN.objects.filter(flag=1)
     def dispatch(self,request ,*args, **kwargs):
         if request.session.has_key('myadmin'):
             a = 'hello'
@@ -334,7 +335,7 @@ class PaymentIndexView(generic.ListView):
 class PaymentDetailView(generic.DetailView):
     template_name = 'detail/payment_detail.html'
     context_object_name = 'payment'
-    model = payment
+    model = PayPalIPN
     def dispatch(self,request ,*args, **kwargs):
         if request.session.has_key('myadmin'):
             a = 'hello'
@@ -372,10 +373,10 @@ def search(request):
                 }
                 return HttpResponse(template.render(context,request))
             elif table == 'transaction_id':
-                payment_data = payment.objects.filter(transaction_id__icontains=query)
+                payment_data = PayPalIPN.objects.filter(txn_id=query,flag=1)
                 template = loader.get_template('detail/payment_detail.html')
                 context = {
-                    'payment':payment_data, 
+                    'payment':payment_data,
                 }
                 return HttpResponse(template.render(context,request))
             elif table == 'complaint':

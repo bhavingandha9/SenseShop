@@ -10,8 +10,7 @@ from django.http import HttpResponse
 
 @csrf_exempt
 def payment_done(request):
-    html = request
-    return HttpResponse(html)
+    return redirect('checkout')
 
 @csrf_exempt
 def payment_canceled(request):

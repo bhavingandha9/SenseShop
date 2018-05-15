@@ -11,6 +11,8 @@ from django.core.urlresolvers import reverse_lazy,reverse
 from . import app_settings
 from django.db.models import F
 from django.core.exceptions import ObjectDoesNotExist
+from paypal.standard.ipn.models import PayPalIPN
+
 
 class Userhome(generic.ListView):
     template_name = 'index.html'
@@ -167,7 +169,6 @@ def payment(request):
 
 def checkout(request):
     user = request.session['user']
-    payment_id = request.session['payment_id']
     user_object = customer.objects.get(email = user )
     cart = temp_cart.objects.filter(c_id_id=user_object.id)
     product = []
@@ -176,7 +177,7 @@ def checkout(request):
         product.append(cart_data.pro_id_id)
         quantity.append(cart_data.quantity)
 
-    entry = order_details(pay_id_id = payment_id , c_id = user_object ,products = product, quantity= quantity, flag = 0)
+    entry = order_details(pay_id_id = 1 , c_id = user_object ,products = product, quantity= quantity, flag = 0)
     entry.save()    
     temp_cart.objects.filter(c_id_id=user_object.id).delete()           
     return redirect('user')

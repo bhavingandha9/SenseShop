@@ -28,9 +28,9 @@
                         </tr>
                             {% for pay in payment %}
                             <tr class="alternate-row">   
-                                    <td> <b><a href="{% url 'payment_detail' pay.id %}"> {{ pay.c_id }}</a></b></td>
-                                    <td> {{ pay.amount }}</td>
-                                    <td> {{ pay.transaction_id }}</td> 
+                                    <td> <b><a href="{% url 'payment_detail' pay.id %}"> {{ pay.payer_email }}</a></b></td>
+                                    <td> {{ pay.mc_gross }}</td>
+                                    <td> {{ pay.txn_id }}</td> 
                                     <td> <a href=" " title="Update" class="icon-1 info-tooltip"> </a>
                                          <a href="" title="Delete" class="icon-2 info-tooltip"></a>
                                     </td>

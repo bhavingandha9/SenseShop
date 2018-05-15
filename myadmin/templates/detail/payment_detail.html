@@ -1,8 +1,8 @@
 {% load staticfiles %}
 {% include 'article_start.html' %}
-halsdkfak
-    {{ payment.c_id }} 
-    {{ payment.amount }} 
-    {{ payment.transaction_id }} 
-    
+{% for pay in payment %}
+    <b>transaction_id :</b> {{ pay.txn_id }}<br> 
+    <b>Payer:</b> {{ pay.payer_email }}<br> 
+    <b>Amount:</b> {{ pay.mc_gross }} 
+{% endfor %}
 {% include 'article_close.html' %}
